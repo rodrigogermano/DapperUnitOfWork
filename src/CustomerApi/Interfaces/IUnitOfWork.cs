@@ -7,5 +7,6 @@ namespace CustomerApi.Interfaces
         ICustomerRepository CustomerRepository { get; }
         IAddressRepository AddressRepository { get; }
         void Commit();
+        void Rollback();
     }
 }

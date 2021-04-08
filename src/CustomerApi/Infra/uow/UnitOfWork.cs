@@ -1,11 +1,8 @@
 ﻿using CustomerApi.Infra.Repositories;
 using CustomerApi.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CustomerApi.Infra.uow
 {
@@ -34,6 +31,12 @@ namespace CustomerApi.Infra.uow
             get { return _addressRepository ?? (_addressRepository = new AddressRepository(_transaction)); }
         }
 
+        public void Rollback() {
+            _transaction.Rollback();
+            _transaction.Dispose();            
+            resetRepositories();
+        }
+        
         public void Commit()
         {
             try
